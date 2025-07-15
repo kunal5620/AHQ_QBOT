@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANAND Chatbot UI</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #06242110; /* Very light blue for the page background */
+            color: #0a0707;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #bbe0eb; /* Lighter blue for the header */
+            padding: 5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            color: #080202;
+            text-align: center;
+            flex-direction: column; /* Stack text vertically */
+            position: relative;
+            height: 80px;
+        }
+        .logo-left {
+            position: absolute;
+            left: 40px;
+            width: 130px;
+            height: 90px;
+        }
+        .logo-right {
+            position: absolute;
+            right: 5px;
+            width: 290px;
+            height: 75px;
+        }
+        .left-text {
+            position: absolute;
+            left: 5px;
+            width: 650px;
+            height: 95px;
+            font-size: 40px;
+            margin-top: 110px;
+            /*box-shadow: 6px 6px 10px rgba(51, 23, 23, 0.2);*/
+            color: #145b99;            
+        }
+        .right-text {
+            margin: 0px;
+            position: absolute;
+            right: 320px;
+            width: 200px;
+            height: 80px;
+            font-size: 25px;
+            /*box-shadow: 6px 6px 10px rgba(51, 23, 23, 0.2);*/
+            color: #145b99;
+        }
+        .header .line {
+            /*align-content: center;*/
+            margin: 0;
+            position: absolute;
+            left: -95px;
+            font-size: 45px; /* Same size for both lines */
+            font-weight: bold; /* Bold header text */
+            color: #040213;
+            /*box-shadow: 6px 6px 10px rgba(51, 23, 23, 0.2);*/
+            width: 1350px;
+        }
+        .disclaimer {
+            background-color: #bbdefb; /* Light blue for the disclaimer box */
+            color: #0d47a1; /* Darker blue for contrast */
+            padding: 0px;
+            margin: 8px auto 15px; /* Adjust margin to ensure visibility below the header */
+            width: 100%;
+            border-radius: 5px;
+            text-align: center;
+            /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+            font-size: 10px;
+        }
+
+        .disclaimer-bootom {
+            background-color: #bbdefb; /* Light blue for the disclaimer box */
+            color: #0d47a1; /* Darker blue for contrast */
+            padding: 0px;
+            margin: 5px auto 5px; /* Adjust margin to ensure visibility below the header */
+            width: 100%;
+            border-radius: 5px;
+            text-align: center;
+            /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+            font-size: 10px;
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-grow: 1;
+            padding: 0px;
+        }
+        .slideshow {
+            width: 270px;
+            height: 390px;
+            overflow: hidden;
+            position: relative;
+            margin: 0 20px;
+            /*box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);*/
+            border-radius: 10px;
+        }
+        .slideshow-container {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            animation: slideShow 90s linear infinite;
+        }
+        .slideshow-container img {
+            width: 100%;
+            height: 50%;
+            display: block;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+        @keyframes slideShow {
+            0% { transform: translateY(0); }
+            20% { transform: translateY(0); }
+            25% { transform: translateY(-100%); }
+            30% { transform: translateY(-100%); }
+            35% { transform: translateY(-200%); }
+            40% { transform: translateY(-200%); }
+            45% { transform: translateY(-300%); }
+            50% { transform: translateY(-300%); }
+            55% { transform: translateY(-400%); }
+            60% { transform: translateY(-400%); }
+            65% { transform: translateY(-500%); }
+            70% { transform: translateY(-500%); }
+            75% { transform: translateY(-600%); }
+            80% { transform: translateY(-600%); }
+            85% { transform: translateY(-700%); }
+            90% { transform: translateY(-700%); }
+            100% { transform: translateY(0); } /* Seamless transition back to start */
+        }
+        .box {
+            background-color: #eef1f4; /* Lighter blue for the chatbox container */
+            color: #333;
+            padding: 10px;
+            margin: 0px auto;
+            width: 65%; /* Reduced width to make space for slideshows */
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 390px;
+        }
+        .chatbox {
+              
+            
+            /* background-image: url('QBOT-5.png'); /* Replace with your image path */
+            background-size: 40% 350px; /* Stretches the image to 100% width and 300px height */
+            /* Adjusts the image to fit within the chatbox without overflowing */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-position: center; /* Centers the image in the chatbox */
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            height: 600px;
+            width: 100%;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            box-sizing: border-box; /*Ensures padding is included in the width/height*/   
+            opacity: 0.9;        
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        .input-group input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px 0 0 10px;
+            font-size: 16px;
+        }
+        .input-group button {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-left: none;
+            background-color: #42a5f5; /* Blue color for the send button */
+            color: #fff;
+            border-radius: 10px 10px 10px 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .input-group button:hover {
+            background-color: #1e88e5; /* Darker blue on hover */
+        }
+        .message {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .message.user {
+            justify-content: flex-end;
+        }
+        .message.user .text {
+            background-color: #64b5f6; /* Light blue for user messages */
+            color: #0d47a1; /* Darker text color for contrast */
+            align-self: flex-end;
+        }
+        .message.bot .text {
+            background-color: #e3f2fd; /* Very light blue for bot messages */
+            color: #333;
+        }
+        .message .text {
+            border-radius: 10px;
+            padding: 12px;
+            max-width: 70%;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .message .timestamp {
+            font-size: 12px;
+            color: #666;
+            margin-left: 10px;
+            align-self: flex-end;
+        }
+        .message img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .message.user img {
+            order: 2;
+            margin-left: 10px;
+            margin-right: 0;
+        }
+        .footer {
+            background-color: #1e88e5; /* Same medium blue as the header */
+            color: #f7f4f4;
+            padding: 15px;
+            position: relative; /* Ensure the lines can be positioned absolutely */
+            text-align: center; /* Center the text */
+            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
+            height: 17px;
+        }
+        .footer-line {
+            position: absolute;
+            height: 0px; /* Line thickness */
+            background-color: #fcfafa; /* Line color */
+            top: 15%;
+            transform: translateY(-50%); /* Center the line vertically */
+        }
+        .footer-line.left {
+            left: 20px;
+            /*width: 100px; /* Adjust width as needed */
+        }
+        .footer-line.center {
+            left: 400px;
+            font-size:30px;
+            margin-top: -6px;
+            color: #000000;
+        }
+        .footer-line.center1 {
+            left: 770px;
+            color: #f10cf1;
+        }
+        .footer-line.right {
+            right: 20px;
+           /* width: 100px; /* Adjust width as needed */
+        }
+    </style>
+</head>
+<body style="background-color: #6ba7db;">
+    <div class="header">
+        <!--<img src="{{url_for('static', filename="images/left-logo.png")}}" alt="Left Logo" class="logo-left">
+        <h5 class="left-text">EXCELLENCE IN MANUFACTURING</h5>
+        <h5 class="right-text">ANAND House of Quality (AHQ)</h5>
+        <h1 class="line">QBOT</h1>        
+        <img src="{{url_for('static', filename="images/left-logo.png")}}" alt="Left Logo" class="logo-right">-->
+
+        <!--<h5 class="left-text">It's All About QUALITY</h5>-->
+        <img src="{{url_for('static', filename="images/Logo.png")}}" alt="Left Logo" class="logo-left">
+        <!--<h5 class="left-text">EXCELLENCE IN MANUFACTURING</h5>-->
+        <!--<h5 class="right-text">ANAND House of Quality (AHQ)</h5>-->
+        <h2 class="line">ANAND HOUSE OF QUALITY - QBOT</h2>        
+        <img src="{{url_for('static', filename="images/anand-logo-removebg-preview.png")}}" alt="Left Logo" class="logo-right">
+        
+    </div>
+    <div class="disclaimer">
+        This bot is built on given Custom Knowledge, with a Large Language Model. This can make mistakes and answers questions related only to the Database.
+    </div>
+    <div class="main-content">
+        <div class="slideshow">
+            <div class="slideshow-container">
+                <!--<img src="slide1.png" alt="Slide 1">-->
+                <img src="{{url_for('static', filename="images/QBOT2.png")}}" alt="Slide 2">
+                <img src="{{url_for('static', filename="images/QBOT02.png")}}" alt="Slide 3">
+                <img src="{{url_for('static', filename="images/QBOT3.png")}}" alt="Slide 4">
+                <img src="{{url_for('static', filename="images/QBOT4.png")}}" alt="Slide 5">
+                <img src="{{url_for('static', filename="images/QBOT5.png")}}" alt="Slide 6">
+                <img src="{{url_for('static', filename="images/QBOT6.png")}}" alt="Slide 7">
+                <img src="{{url_for('static', filename="images/QBOT7.png")}}" alt="Slide 8">
+                <img src="{{url_for('static', filename="images/QBOT10.png")}}" alt="Slide 9">
+                <img src="{{url_for('static', filename="images/QBOT11.png")}}" alt="Slide 10">
+                <img src="{{url_for('static', filename="images/QBOT12.png")}}" alt="Slide 11">
+                <img src="{{url_for('static', filename="images/QBOT13.png")}}" alt="Slide 12">
+                <img src="{{url_for('static', filename="images/QBOT15.png")}}" alt="Slide 13">
+                <img src="{{url_for('static', filename="images/QBOT16.png")}}" alt="Slide 14">
+                <img src="{{url_for('static', filename="images/QBOT17.png")}}" alt="Slide 15">
+                <img src="{{url_for('static', filename="images/QBOT20.png")}}" alt="Slide 16">
+                <img src="{{url_for('static', filename="images/QBOT21.png")}}" alt="Slide 17">
+                <!--<img src="QBOT-5.png" alt="Slide 6">-->
+            </div>
+        </div>
+        <div id="speechMessage"></div>
+        <div class="box">
+            <div class="chatbox" id="chatbox"></div>
+            <div class="input-group">
+                <input type="text" id="userInput" placeholder="Type your query...">
+                <button onclick="sendMessage()">Send</button>
+
+                <button id="speechButton" onclick="convertSpeechToText()">🎤</button>
+
+            </div>
+        </div>
+        <div class="slideshow">
+            <div class="slideshow-container">
+                <!--<img src="slide1.png" alt="Slide 1">-->
+                <img src="{{url_for('static', filename="images/QBOT21.png")}}" alt="Slide 2">
+                <img src="{{url_for('static', filename="images/QBOT20.png")}}" alt="Slide 3">
+                <img src="{{url_for('static', filename="images/QBOT17.png")}}" alt="Slide 4">
+                <img src="{{url_for('static', filename="images/QBOT16.png")}}" alt="Slide 5">
+                <img src="{{url_for('static', filename="images/QBOT15.png")}}" alt="Slide 6">
+                <img src="{{url_for('static', filename="images/QBOT13.png")}}" alt="Slide 7">
+                <img src="{{url_for('static', filename="images/QBOT7.png")}}" alt="Slide 8">
+                <img src="{{url_for('static', filename="images/QBOT10.png")}}" alt="Slide 9">
+                <img src="{{url_for('static', filename="images/QBOT11.png")}}" alt="Slide 10">
+                <img src="{{url_for('static', filename="images/QBOT12.png")}}" alt="Slide 11">
+                <img src="{{url_for('static', filename="images/QBOT6.png")}}" alt="Slide 12">
+                <img src="{{url_for('static', filename="images/QBOT5.png")}}" alt="Slide 13">
+                <img src="{{url_for('static', filename="images/QBOT4.png")}}" alt="Slide 14">
+                <img src="{{url_for('static', filename="images/QBOT3.png")}}" alt="Slide 15">
+                <img src="{{url_for('static', filename="images/QBOT02.png")}}" alt="Slide 16">
+                <img src="{{url_for('static', filename="images/QBOT2.png")}}" alt="Slide 17">
+                <!--<img src="QBOT-5.png" alt="Slide 6">-->
+            </div>
+        </div>
+    </div>
+    
+    <div class="disclaimer-bootom">
+        This bot is built on given Custom Knowledge, with a Large Language Model. This can make mistakes and answers questions related only to the Database.
+    </div>
+
+    <div class="footer">
+        <div class="footer-line left"> <b>FIRST TIME RIGHT AND EVERY TIME RIGHT</b></div>
+        <div class="footer-line center"> <b>It's All About QUALITY</b></div>
+        <!--<div class="footer-line center1"> <a href="/files/query_log.xlsx"><b><u>Click here to log files</u></b></a></div>-->
+        <div class="footer-line right"> <b>Developed and Managed by EXCELLENCE IN MANUFACTURING</b></div>
+        
+    </div>
+    <script>
+    
+                function sendMessage() {
+                var userInput = document.getElementById('userInput');
+                var chatbox = document.getElementById('chatbox');
+
+                if (userInput.value.trim() !== '') {
+                    var userMessage = document.createElement('div');
+                    userMessage.classList.add('message', 'user');
+
+                    var userImg = document.createElement('img');
+                    userImg.src = '{{url_for('static', filename="images/user-logo.jpg")}}'; // Path to user logo image
+                    userImg.alt = 'User Logo';
+
+                    var messageText = document.createElement('div');
+                    messageText.classList.add('text');
+                    messageText.textContent = userInput.value;
+
+                    var timestamp = document.createElement('div');
+                    timestamp.classList.add('timestamp');
+                    timestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                    userMessage.appendChild(timestamp);
+                    userMessage.appendChild(messageText);
+                    userMessage.appendChild(userImg);
+                    chatbox.appendChild(userMessage);
+
+                    chatbox.scrollTop = chatbox.scrollHeight;
+
+                    fetch('/query', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ query: userInput.value })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.answer) {
+                            var botMessage = document.createElement('div');
+                            botMessage.classList.add('message', 'bot');
+
+                            var botImg = document.createElement('img');
+                            botImg.src = '{{url_for('static', filename="images/response-logo.png")}}';
+                            botImg.alt = 'Bot Logo';
+
+                            var botMessageText = document.createElement('div');
+                            botMessageText.classList.add('text');
+                            //botMessageText.textContent = data.answer;
+                            botMessageText.innerHTML = data.answer.replace(/\n/g, '<br>');
+
+                            var botTimestamp = document.createElement('div');
+                            botTimestamp.classList.add('timestamp');
+                            botTimestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                            botMessage.appendChild(botImg);
+                            botMessage.appendChild(botMessageText);
+                            botMessage.appendChild(botTimestamp);
+                            chatbox.appendChild(botMessage);
+
+                            chatbox.scrollTop = chatbox.scrollHeight;
+
+                            // Call the new endpoint to trigger the pyttsx3 code
+                            /*fetch('/speak', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Speech generated:', data);
+                            })
+                            .catch(error => {
+                                console.error('Error generating speech:', error);
+                            });*/
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                    });
+                    userInput.value = '';
+                }
+            }
+
+
+
+            function convertSpeechToText() {
+                fetch('/convert_speech', {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Update the input box with the transcribed text
+                    document.getElementById('userInput').value = data.transcription;
+                })
+                .catch(error => console.error('Error:', error));
+            }
+            
+                     
+
+        </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<b>Matching Score:</b> ${(match.score)}-->
+
+
+<!--<b>Best Fit Match:</b> ${match.file_name}<br>
+    <b>Matching Score:</b> ${(match.score)}<br>-->
+
+<!--
+    function sendMessage() {
+                var userInput = document.getElementById('userInput');
+                var chatbox = document.getElementById('chatbox');
+        
+                if (userInput.value.trim() !== '') {
+                    var userMessage = document.createElement('div');
+                    userMessage.classList.add('message', 'user');
+        
+                    var userImg = document.createElement('img');
+                    userImg.src = '{{url_for('static', filename="images/user-logo.jpg")}}'; // Path to user logo image
+                    userImg.alt = 'User Logo';
+        
+                    var messageText = document.createElement('div');
+                    messageText.classList.add('text');
+                    messageText.textContent = userInput.value;
+        
+                    var timestamp = document.createElement('div');
+                    timestamp.classList.add('timestamp');
+                    timestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+                    userMessage.appendChild(timestamp);
+                    userMessage.appendChild(messageText);
+                    userMessage.appendChild(userImg);
+                    chatbox.appendChild(userMessage);
+        
+                    chatbox.scrollTop = chatbox.scrollHeight;
+        
+                    fetch('/query', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ query: userInput.value })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Check if the response contains 'answer' key
+                        if (data.answer) {
+                            var botMessage = document.createElement('div');
+                            botMessage.classList.add('message', 'bot');
+
+                            var botImg = document.createElement('img');
+                            botImg.src = '{{url_for('static', filename="images/response-logo.png")}}';
+                            botImg.alt = 'Bot Logo';
+
+                            var botMessageText = document.createElement('div');
+                            botMessageText.classList.add('text');
+                            botMessageText.textContent = data.answer;
+
+                            var botTimestamp = document.createElement('div');
+                            botTimestamp.classList.add('timestamp');
+                            botTimestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                            botMessage.appendChild(botImg);
+                            botMessage.appendChild(botMessageText);
+                            botMessage.appendChild(botTimestamp);
+                            chatbox.appendChild(botMessage);
+
+                            chatbox.scrollTop = chatbox.scrollHeight;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                    });
+                    userInput.value = '';
+                }
+            }-->
